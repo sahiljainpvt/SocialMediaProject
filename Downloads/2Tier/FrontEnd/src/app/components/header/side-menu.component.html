@@ -1,0 +1,34 @@
+<!-- app.component.html -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark opacity-100 shadow ">
+  <b><a class="navbar-brand m-2" href="#">SocialNetwork</a></b>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <li class="navbar-brand" >
+        <a class="nav-link" style="color: white;" [routerLink]="['/']">Home</a>
+      </li>
+
+
+      <li class="navbar-brand">
+        <a *ngIf="accountService.isAuthorized()"  class="nav-link" style="color: white;" [routerLink]="['/users']">Users</a>
+      </li>
+      <li class="navbar-brand">
+        <a *ngIf="accountService.isAuthorized()"  class="nav-link" style="color: white;" [routerLink]="['/profile', currentUser.userName]">My Profile</a>
+      </li>
+    </ul>
+    <div class="nav-collapse navbar-collapse justify-content-end">
+    <ul class="navbar-nav ">
+      <li *ngIf="!accountService.isAuthorized()" class="navbar-brand ">
+        <a class="nav-link" style="color: white;" routerLink="/register">Register</a>
+      </li>
+      <li *ngIf="!accountService.isAuthorized()" class="navbar-brand float-end">
+        <a  class="nav-link" style="color: white;" routerLink="/login">Login</a>
+      </li>
+      <li *ngIf="accountService.isAuthorized()" class="navbar-brand float-end">
+        <a  class="nav-link" style="color: white;" (click)="logout()">Logout</a>
+    </ul>
+    </div>
+  </div>

@@ -1,0 +1,71 @@
+<div>
+  <app-side-menu></app-side-menu>
+</div>
+<br>
+
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-md-6 text-center">
+      <input [(ngModel)]="searchTerm" placeholder="Search by username" />
+      <button (click)="search()">Search</button>
+    </div>
+
+    <div class="col-md-6 text-center">
+      <input [(ngModel)]="cityTerm" placeholder="Search by city" />
+      <button (click)="searchCity()">Search</button>
+    </div>
+  </div>
+</div>
+<div class="container mt-3">
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+    <div *ngFor="let user of users" class="col mb-4 filter">
+      <!-- Card-->
+      <div
+        class="card bg-white rounded shadow-sm size"
+        style="border: 1px solid #222"
+      >
+        <img
+          class="card-img-top img-fluid d-block mx-auto mb-3"
+          style="width: 239px; height: 239px"
+          src="{{user.profilePictureUrl}}"
+          alt="Card image cap"
+        />
+        <div class="card-body row">
+          <div class="card-body px-3 pt-3 pb-1 row">
+            <div class="col-7">
+              <h5>
+                Name : <b>{{ user.displayUsername?.toUpperCase() }}</b>
+              </h5>
+            </div>
+          </div>
+          <div class="card-body px-3 pt-3 pb-1 row">
+            <div class="col-8">
+              Date of register <br>{{ user.dateRegistrated | date :'mediumDate' }}
+            </div>
+          </div>
+          <div class="card-body px-3 pt-3 pb-1 row">
+            <div class="col-7">
+              City : {{user.city}}
+            </div>
+          </div>
+
+          <br />
+        </div>
+        <div class="col-12 p-2">
+          <div class="row">
+            <div class="col">
+              <div
+              [routerLink]="['/profile', user.userName]"
+                class="btn btn-success opacity-75 form-control btn-sm p-2"
+                style="height: 40px" 
+              >
+                View Profile
+              
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

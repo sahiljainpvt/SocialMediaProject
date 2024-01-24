@@ -1,0 +1,8 @@
+<div class="liked-list" [@fadeIn]>
+    <div *ngFor="let user of likedUsers">
+        <div class="profile-picture-container" [routerLink]="['/profile', user.userName]">
+            <img *ngIf="user.profilePictureUrl != null" src="{{user.profilePictureUrl}}" alt="">
+            <i *ngIf="user.profilePictureUrl == null" class="bi bi-person-fill"></i>
+          </div>
+    </div>
+</div>

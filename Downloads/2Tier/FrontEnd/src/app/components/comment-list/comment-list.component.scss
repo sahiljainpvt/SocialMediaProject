@@ -1,0 +1,88 @@
+.comment-list {
+  background-color: white;
+  overflow: hidden;
+  padding-right: 60px;
+}
+.comment-list h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+.comment-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.comment-field {
+  width: 100%;
+}
+.comment-list form {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  padding-bottom: 8px;
+  padding-left: 0;
+  >div {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+}
+.textarea-container {
+  display: flex;
+  flex-direction: column;
+  padding-top: 12px;
+  width: 90%;
+  gap: 10px;
+  div:first-child {
+    border-bottom: 2px solid black;
+    padding-bottom: 10px;
+  }
+  div {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    button {
+      font-size: 20px;
+      font-weight: bold;
+      border-radius: 50px;
+      padding: 5px 25px; 
+      background-color: white;    
+      transition: all .1s linear;
+      cursor: pointer;
+
+    }
+    button:hover {
+      background-color: whitesmoke;
+    }
+  }
+}
+.profile-picture-container {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: white;
+  cursor: pointer;
+}
+.profile-picture-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.profile-picture-container i {
+  font-size: 50px;
+}
+.comment-text {
+  min-width: 100%;
+  padding: 0;
+  border: 0;
+  font-size: 20px;
+  overflow: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.comment-text:focus {
+  outline: none;
+}

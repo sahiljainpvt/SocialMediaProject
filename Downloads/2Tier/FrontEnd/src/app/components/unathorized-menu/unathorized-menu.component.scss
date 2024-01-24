@@ -1,0 +1,78 @@
+.unathorized {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.5);
+    >div {
+        margin-right: 15px;
+        border-radius: 10px;
+        background-color: white;
+        >div {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            > p {
+                font-size: 20px;
+                font-weight: bold;
+            }
+        }
+        >div:last-child {
+            padding: 50px;
+            padding-top: 30px;
+        }
+    }
+}
+.login-button {
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 50px;
+    padding: 5px 25px; 
+    background-color: white;    
+    transition: color .1s linear;
+    transition: background-color .1s linear;
+    cursor: pointer;
+    position: relative;
+}
+.login-button:hover {
+    border: 2px solid rgb(43, 167, 255);
+    color: rgb(43, 167, 255);
+    background-color: rgb(221, 241, 255);
+}
+.register-button {
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 50px;
+    padding: 5px 25px; 
+    background-color: white;    
+    transition: color .1s linear;
+    transition: background-color .1s linear;
+    cursor: pointer;
+    position: relative;
+}
+.register-button:hover {
+    border: 2px solid rgb(43, 167, 255);
+    color: rgb(43, 167, 255);
+    background-color: rgb(221, 241, 255);
+}
+.icon {
+    font-size: 30px;
+}
+.icon-container {
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: all .1s linear;
+    width: 30px;
+    margin: 10px;
+    margin-bottom: 0;
+}
+.icon-container:hover {
+    background-color:#e5e5e5;
+}

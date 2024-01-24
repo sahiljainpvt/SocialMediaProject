@@ -1,0 +1,59 @@
+<div class="post-card">
+  <div class="profile-picture-container" [routerLink]="['/profile', postOwner.userName]">
+    <img *ngIf="postOwner.profilePictureUrl != null" src="{{postOwner.profilePictureUrl}}" alt="">
+    <i *ngIf="postOwner.profilePictureUrl == null" class="bi bi-person-fill"></i>
+  </div>
+  <div>
+    <div class="post-header">
+      <div>
+        <p class="username" [routerLink]="['/profile', postOwner.userName]">{{postOwner.displayUsername}}</p>
+        <p class="color-gray">{{ post.dateCreated | date }}</p>
+      </div>
+      <div>
+        <div *ngIf="accountService.getCurrentUserId() != undefined">
+          <button *ngIf="post.userId === currentUser.id && !isEditing" class="edit-button" (click)="toggleEditing()"><i class="bi bi-pen"></i></button>
+          <button *ngIf="post.userId === currentUser.id && !isEditing" class="delete-button" (click)="deletePost()"><i class="bi bi-trash3"></i></button>
+        </div>
+    </div>
+    </div>
+    <div class="post-body">
+      <div *ngIf="isEditing">
+        <div class="textarea-container"> 
+          <div>
+            <textarea
+              placeholder="Edit a post" class="post-text"     
+              [(ngModel)]="editedContent"
+              cdkTextareaAutosize
+              cdkAutosizeMinRows="1"
+              matInput 
+              [value]="post.content" 
+              type="text">
+          </textarea>
+          </div>
+          <div>
+            <button (click)="savePost()">Save</button>
+            <button (click)="cancelEditing()">Cancel</button>
+          </div>
+      </div>
+      </div>
+      <p *ngIf="!isEditing">{{ post.content }}</p>
+      <img class="post-image" *ngIf="post.profile" src="{{imageUrl+post.profile}}">
+      
+    </div>
+    <div class="post-footer">
+      <div>
+          <button class="comment-button" (click)="commentsComponent.toggleComments()"><i class="bi bi-chat"></i></button>
+          <p>{{post.comments?.length}}</p>
+      </div>
+      <div (mouseenter)="isLikeHovering = true" (mouseleave)="isLikeHovering = false">
+        <app-post-like #postLikeComponent [post]="post"></app-post-like>
+        <p>{{post.postLikes?.length}}</p>
+        <app-post-like-list [postId]="post.id" *ngIf="isLikeHovering"></app-post-like-list>
+      </div>
+    </div>
+    <app-comment-list #commentsComponent 
+      [post]="post" 
+      [currentUser]="currentUser">
+    </app-comment-list>
+  </div>
+</div>

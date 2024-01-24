@@ -1,0 +1,63 @@
+<app-side-menu></app-side-menu>
+<div class="post-list">
+  <div class="page-name">
+    <h1>Home</h1>
+  </div>
+  <form *ngIf="accountService.isAuthorized()" [formGroup]="postForm" (ngSubmit)="addPost()">
+    <div>
+      <div class="profile-picture-container" [routerLink]="['/profile', currentUser.userName]">
+        <img *ngIf="currentUser.profilePictureUrl != null" src="{{currentUser.profilePictureUrl}}" alt="Wait">
+        <i *ngIf="currentUser.profilePictureUrl == null" class="bi bi-person-fill"></i>
+      </div>    
+      <div class="textarea-container"> 
+        <div>
+          <textarea
+          placeholder="Leave a post" class="post-text"     
+          [(ngModel)]="post.content"
+          formControlName="content"
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="1"
+          matInput type="text">
+        </textarea>
+        </div>
+        <div class="mb-3">
+          <label class="image">Upload Image</label>
+          <input type="file" (change)="handleUpload($event)" formControlName="image" class="form-control">
+        </div>
+        <div>
+          <button type="submit">Post</button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <app-post *ngFor="let post of posts" 
+    [post]="post" 
+    [currentUser]="currentUser" 
+    [posts]="posts">
+  </app-post>
+</div>
+<!-- Add this modal at the end of your HTML file -->
+<div class="modal" #blankContentModal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title" style="color:red">ERROR</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      
+      <!-- Modal Body -->
+      <div class="modal-body">
+        Please enter a valid post content.
+      </div>
+      
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+

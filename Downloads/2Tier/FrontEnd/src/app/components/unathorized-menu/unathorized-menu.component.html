@@ -1,0 +1,12 @@
+<div class="unathorized" (mousedown)="onClose()">
+    <div (mousedown)="stopPropagation($event)">
+        <div (click)="onClose()" class="icon-container">
+            <i class="bi bi-x-lg icon"></i>
+        </div>
+        <div>
+            <p>{{unathorizedText}}</p>
+            <button [routerLink]="['/login']" class="login-button">Login</button>
+            <button [routerLink]="['/register']" class="register-button">Register</button>
+        </div>
+    </div>
+</div>

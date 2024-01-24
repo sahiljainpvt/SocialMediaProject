@@ -1,0 +1,48 @@
+<li class="comment">
+    <div class="profile-picture-container" [routerLink]="['/profile', commentOwner.userName]">
+        <img *ngIf="commentOwner.profilePictureUrl != null" src="{{commentOwner.profilePictureUrl}}" alt="">
+        <i *ngIf="commentOwner.profilePictureUrl == null" class="bi bi-person-fill"></i>
+      </div>
+    <div>
+        <div class="comment-header">
+            <div>
+                <p class="username" [routerLink]="['/profile', commentOwner.userName]">{{commentOwner.displayUsername}}</p>
+                <p class="color-gray">{{ commentOwner.userName}}</p>
+                <p class="color-gray">{{ comment.dateCreated | date }}</p>
+              </div>
+            <div>
+                <button *ngIf="comment.userId === currentUserId && !isEditing" class="edit-button" (click)="toggleEditing()"><i class="bi bi-pen"></i></button>
+                <button *ngIf="comment.userId === currentUserId && !isEditing" class="delete-button" (click)="deleteComment()"><i class="bi bi-trash3"></i></button>
+            </div>
+        </div>
+        <div class="comment-body">
+            <div *ngIf="isEditing">
+                <div class="textarea-container"> 
+                    <div>
+                      <textarea
+                        placeholder="Edit a comment" class="comment-text"     
+                        [(ngModel)]="editedContent"
+                        cdkTextareaAutosize
+                        cdkAutosizeMinRows="1"
+                        matInput 
+                        [value]="comment.content" 
+                        type="text">
+                    </textarea>
+                    </div>
+                    <div>
+                      <button (click)="saveComment()">Save</button>
+                      <button (click)="cancelEditing()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+            <p *ngIf="!isEditing">{{ comment.content }}</p>
+        </div>
+        <div class="comment-footer">
+            <div (mouseenter)="isLikeHovering = true" (mouseleave)="isLikeHovering = false">
+                <app-comment-like #commentLikeComponent [comment]="comment" [currentUserId]="currentUserId"></app-comment-like>
+                <p>{{ comment.commentLikes?.length }}</p>
+                <app-comment-like-list [commentId]="comment.id" [currentUserId]="currentUserId" *ngIf="isLikeHovering"></app-comment-like-list>
+            </div>
+        </div>
+    </div>
+</li>

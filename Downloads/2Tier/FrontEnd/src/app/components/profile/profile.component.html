@@ -1,0 +1,68 @@
+<app-side-menu></app-side-menu>
+<app-unathorized-menu (closeMenu)="toggleUnathorizedFollowClick()" *ngIf="isUnathorizedFollowClicked" [unathorizedText]="unathorizedMessage"></app-unathorized-menu>
+<form [formGroup]="userChangesForm" (ngSubmit)="saveChanges()"> 
+    <div class="edit" *ngIf="isEditing" (mousedown)="toggleEditing()">
+        <div (mousedown)="stopPropagation($event)">
+            <div class="edit-header">
+                <div>
+                    <div (click)="toggleEditing()" class="icon-container">
+                        <i class="bi bi-x-lg icon"></i>
+                    </div>
+                    <p>Change profile</p>
+                </div>
+                <button type="submit" class="save-button">Save</button>
+            </div>
+            <div>
+                <div><input type="text" formControlName="displayUsername" placeholder="Name"></div>
+                <div><input type="url" formControlName="profilePictureUrl" placeholder="Profile picture url"></div>
+                <div><input type="url" formControlName="profileBackgroundUrl" placeholder="Background picture url"></div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="profile">
+    <div>
+        <div class="back">
+            <div class="icon-container" backButton>
+                <i class="bi bi-arrow-left icon"></i>
+            </div>
+        </div>
+        <div class="profile-background-container">
+            <img *ngIf="accountOwner.profileBackgroundUrl != null" src="{{accountOwner.profileBackgroundUrl}}" alt="">
+        </div>
+        <div class="profile-container">
+            <div class="main-info">
+                <div>
+                    <div class="profile-picture-container">
+                        <img *ngIf="accountOwner.profilePictureUrl != null" src="{{accountOwner.profilePictureUrl}}" alt="">
+                        <i *ngIf="accountOwner.profilePictureUrl == null" class="bi bi-person-fill"></i>
+                    </div>
+                    <div class="usernames">
+                        <p class="display-username">{{accountOwner.displayUsername}}</p>
+                        <p class="color-gray">{{accountOwner.userName}}</p>
+                    </div>
+                </div>
+                <div>
+                    <button (click)="toggleEditing()" *ngIf="isCurrentUserIsOwner" class="change-button">Change profile</button>
+                    <button [class.bottom]="accountOwner.profilePictureUrl == null" *ngIf="!isCurrentUserIsOwner && !isFollowed" class="follow-button" (click)="toggleFollow()">Follow</button>
+                    <button [class.bottom]="accountOwner.profilePictureUrl == null" *ngIf="!isCurrentUserIsOwner && isFollowed" class="unfollow-button" (click)="toggleFollow()">Unfollow</button>
+                </div>
+            </div>
+            <div class="other-info color-gray">
+                <p><i class="bi bi-calendar4-week"></i> Registrated: {{accountOwner.dateRegistrated | date}}</p>
+                <div>
+                    <p [routerLink]="['followers']">{{followers.length}} Followers</p>
+                    <p [routerLink]="['following']">{{following.length}} Following</p>
+                </div>
+            </div>
+            <div class="buttons-container">
+                <div (click)="showPosts()">Posts</div>
+                <div (click)="showComments()">Comments</div>
+            </div>
+            <div>
+                <app-user-post-list *ngIf="showUserPosts" [currentUser]="currentUser"></app-user-post-list>
+                <app-user-comment-list *ngIf="showUserComments" [currentUserId]="currentUserId"></app-user-comment-list>
+            </div>
+        </div>
+    </div>
+</div>

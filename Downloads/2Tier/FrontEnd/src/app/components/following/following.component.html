@@ -1,0 +1,42 @@
+<app-unathorized-menu (closeMenu)="toggleUnathorizedFollowClick()" *ngIf="isUnathorizedFollowClicked" [unathorizedText]="unathorizedMessage"></app-unathorized-menu>
+<div class="follow">
+    <div>
+        <app-side-menu></app-side-menu>
+    </div>
+    <div>
+        <div class="upper-menu">
+            <div class="back">
+                <div class="icon-container" backButton>
+                    <i class="bi bi-arrow-left icon"></i>
+                </div>
+            </div>
+            <div class="buttons-container">
+                <div [routerLink]="['/profile', accountOwnerUserName, 'followers']">Followers</div>
+                <div [routerLink]="['/profile', accountOwnerUserName, 'following']">Following
+                    <div></div>
+                </div>
+            </div>
+            <div class="followers-list">
+                <div *ngFor="let follower of following" class="follower">
+                    <div>   
+                        <div class="profile-picture-container" [routerLink]="['/profile', follower.userName]">
+                            <img *ngIf="follower.profilePictureUrl != null" src="{{follower.profilePictureUrl}}" alt="">
+                            <i *ngIf="follower.profilePictureUrl == null" class="bi bi-person-fill"></i>
+                        </div>
+                        <div class="names">
+                            <p [routerLink]="['/profile', follower.userName]">{{follower.displayUsername}}</p>
+                            <p>@{{follower.userName}}</p>
+                        </div>
+                    </div>
+                    <div *ngIf="!isCurrentUser(follower.id)">
+                        <button *ngIf="!isFollow(follower.id)" class="follow-button" (click)="toggleFollow(follower.id)">Follow</button>
+                        <button *ngIf="isFollow(follower.id)" class="unfollow-button" (click)="toggleFollow(follower.id)">Unfollow</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+
+    </div>
+</div>

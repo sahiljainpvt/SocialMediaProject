@@ -1,0 +1,33 @@
+<div [@showHideComments]="showComments ? 'show' : 'hide'" class="comment-list">
+  <div>
+    <form *ngIf="accountService.isAuthorized()" [formGroup]="commentForm" (ngSubmit)="addComment()">
+      <div>
+        <div class="profile-picture-container" [routerLink]="['/profile', currentUser.userName]">
+          <img *ngIf="currentUser.profilePictureUrl != null" src="{{currentUser.profilePictureUrl}}" alt="">
+          <i *ngIf="currentUser.profilePictureUrl == null" class="bi bi-person-fill"></i>
+        </div>    
+        <div class="textarea-container"> 
+          <div>
+            <textarea
+              placeholder="Leave a comment" class="comment-text"     
+              [(ngModel)]="comment.content"
+              formControlName="content"
+              cdkTextareaAutosize
+              cdkAutosizeMinRows="1"
+              matInput type="text">
+          </textarea>
+          </div>
+          <div>
+            <button type="submit">Comment</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <ul>
+    <app-comment *ngFor="let comment of post?.comments" 
+      [comment]="comment"
+      [comments]="post.comments">
+    </app-comment>
+  </ul>
+</div>
